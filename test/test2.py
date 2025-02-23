@@ -16,6 +16,11 @@ def mouse_callback(event, x, y, flags, param):
 def main():
     # we need cv2.VideoCapture("/dev/video0")
     cap = cv2.VideoCapture(0)
+    fourcc = cv2.VideoWriter_fourcc(*"MJPG")
+    cap.set(cv2.CAP_PROP_FOURCC, fourcc)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+
     if not cap.isOpened():
         print("Where is the camera?")
         return
