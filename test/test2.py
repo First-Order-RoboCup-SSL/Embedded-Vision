@@ -18,8 +18,8 @@ def main():
     cap = cv2.VideoCapture(0)
     fourcc = cv2.VideoWriter_fourcc(*"MJPG")
     cap.set(cv2.CAP_PROP_FOURCC, fourcc)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 848)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
     if not cap.isOpened():
         print("Where is the camera?")
@@ -47,15 +47,15 @@ def main():
 
         lower_red1 = np.array([0, 130, 170])    # [H=0, S=120, V=70]
         upper_red1 = np.array([10, 255, 255])  # [H=10, S=255, V=255]
-        lower_red2 = np.array([160, 40, 140])
+        lower_red2 = np.array([160, 110, 140])
         upper_red2 = np.array([180, 255, 255])
 
         mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
         mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
         mask = mask1 | mask2
 
-        mask = cv2.erode(mask, None, iterations=2)
-        mask = cv2.dilate(mask, None, iterations=2)
+        mask = cv2.erode(mask, None, iterations=1)
+        mask = cv2.dilate(mask, None, iterations=1)
 
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
