@@ -29,7 +29,7 @@ def main():
             print("Bye!")
             break
 
-        # frame = cv2.flip(frame, 0)
+        frame = cv2.flip(frame, 0)
         # our robot need it
 
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -37,7 +37,7 @@ def main():
 
         lower_red1 = np.array([0, 130, 170])    # [H=0, S=120, V=70]
         upper_red1 = np.array([10, 255, 255])  # [H=10, S=255, V=255]
-        lower_red2 = np.array([170, 130, 170])
+        lower_red2 = np.array([160, 40, 140])
         upper_red2 = np.array([180, 255, 255])
 
         mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
