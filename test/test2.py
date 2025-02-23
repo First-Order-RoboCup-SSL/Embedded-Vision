@@ -22,6 +22,10 @@ def main():
     cv2.namedWindow("Red Ball Detection")
     param = {"hsv_frame": None}
     cv2.setMouseCallback("Red Ball Detection", mouse_callback, param)
+    
+    frame_count = 0
+    fps = 0
+    start_time = time.time()
 
     while True:
         ret, frame = cap.read()
@@ -64,7 +68,23 @@ def main():
             info_text = f"Center: ({center_x}, {center_y}), diff_x: {diff_x}"
             cv2.putText(frame, info_text, (x, y - 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        resolution_text = f"Resolution: {width}x{height}"
+        cv2.putText(frame, resolution_text, (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 255), 2)
+        
+        frame_count += 1
+        elapsed_time = time.time() - start_time
+        if elapsed_time >= 1.0:
+            fps = frame_count / elapsed_time
+            frame_count = 0
+            start_time = time.time()
 
+        fps_text = f"FPS: {fps:.2f}"
+        cv2.putText(frame, fps_text, (10, 70),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 255), 2)
+                    
         cv2.imshow("Red Ball Detection", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
