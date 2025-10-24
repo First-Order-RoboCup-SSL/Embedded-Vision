@@ -49,6 +49,7 @@ def main():
         upper_red1 = np.array([10, 255, 255])  # [H=10, S=255, V=255]
         lower_red2 = np.array([160, 110, 140])
         upper_red2 = np.array([180, 255, 255])
+        # TODO: Check the performance at different lighting conditions
 
         mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
         mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
